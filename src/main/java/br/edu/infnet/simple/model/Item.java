@@ -10,6 +10,10 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 public class Item  {
@@ -18,8 +22,15 @@ public class Item  {
 	@GeneratedValue
 	private Integer id;
 	
+	@NotNull
+	@Size(
+			min = 2,
+			max = 255,
+			message = "Name cannot be < 2 and > 255"
+			)
 	private String name;
 	
+	@Temporal(TemporalType.DATE)
 	private Date createOn;
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "item")
